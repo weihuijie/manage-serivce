@@ -1,0 +1,14 @@
+#server 属性
+server:
+  port: 8080
+  servlet:
+    #路径配置
+    context-path: /
+
+#数据库配置
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/x?useUnicode=true&characterEncoding=utf-8
+    username: root
+    password: root
+

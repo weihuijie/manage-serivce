@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+    <groupId>com.x</groupId>
+    <artifactId>manage-service</artifactId>
+    <packaging>jar</packaging>
+    <version>1.0-SNAPSHOT</version>
+
+    <modelVersion>4.0.0</modelVersion>
+
+    <properties>
+        <!-- 编译字符编码为utf-8 -->
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <!-- 输出字符编码为UTF-8  -->
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <!-- jdK版本 -->
+        <java.version>1.8</java.version>
+
+        <spring.boot.version>2.3.4.RELEASE</spring.boot.version>
+        <spring.boot.tools>2.2.4.RELEASE</spring.boot.tools>
+        <x.tool.version>1.0-SNAPSHOT</x.tool.version>
+        <mybatis-plus>3.3.2</mybatis-plus>
+
+    </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-dependencies</artifactId>
+                <version>${spring.boot.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <!--依赖-->
+    <dependencies>
+        <!-- spring boot  启动jar-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter</artifactId>
+        </dependency>
+
+        <!-- spring boot 测试-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+        </dependency>
+
+        <!-- spring boot web 项目-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+            <!-- 排除内置 tomcat 依赖-->
+           <!-- <exclusions>
+                <exclusion>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-starter-tomcat</artifactId>
+                </exclusion>
+            </exclusions>-->
+        </dependency>
+
+        <!--自定义启动器-->
+        <dependency>
+            <groupId>com.x</groupId>
+            <artifactId>x-core-launch</artifactId>
+            <version>${x.tool.version}</version>
+            <scope>compile</scope>
+        </dependency>
+
+        <!--lombook-->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+        </dependency>
+
+        <!--mybatis plus-->
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-boot-starter</artifactId>
+            <version>${mybatis-plus}</version>
+        </dependency>
+
+        <!--mysql JDBC驱动 -->
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+        </dependency>
+
+    </dependencies>
+
+    <!-- 编译 -->
+    <build>
+        <!-- build过程中涉及的资源文件 -->
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+            </resource>
+            <resource>
+                <directory>src/main/java</directory>
+                <includes>
+                    <include>**/*.xml</include>
+                </includes>
+            </resource>
+        </resources>
+        <!-- 插件 -->
+        <plugins>
+            <!-- maven插件 -->
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>${spring.boot.version}</version>
+                <!-- 是否加载该插件的扩展，默认false-->
+                <extensions>false</extensions>
+                <!-- 该插件的configuration中的配置是否可以被（继承该POM的其他Maven项目）继承，默认true -->
+                <inherited>true</inherited>
+                <!-- 该插件所需要的特殊配置，在父子项目之间可以覆盖或合并 -->
+                <configuration>
+                    <finalName>${project.build.finalName}</finalName>
+                    <includeSystemScope>true</includeSystemScope>
+                </configuration>
+                <!-- 该插件所特有的依赖类库 -->
+                <dependencies>
+                </dependencies>
+                <!-- 该插件的某个goal（一个插件中可能包含多个goal）的执行方式。 -->
+                <executions>
+                    <execution>
+                        <!-- 唯一标识-->
+                        <!--<id></id>-->
+                        <!-- 要执行的插件的goal（可以有多个） -->
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                        <!-- 插件的goal要嵌入到Maven的phase中执行，如verify -->
+                        <!--<phase></phase>-->
+                        <!-- 该execution是否可被子项目继承 -->
+                        <!--<inherited></inherited>-->
+                        <!-- 该execution的其他配置参数 -->
+                        <!--<configuration></configuration>-->
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+</project>
