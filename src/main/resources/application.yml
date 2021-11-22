@@ -1,5 +1,6 @@
 #server 属性
 server:
+  #端口配置
   port: 8080
   servlet:
     #路径配置

@@ -22,7 +22,7 @@
         <spring.boot.tools>2.2.4.RELEASE</spring.boot.tools>
         <x.tool.version>1.0-SNAPSHOT</x.tool.version>
         <mybatis-plus>3.3.2</mybatis-plus>
-
+        <fastjson>1.2.78</fastjson>
     </properties>
 
     <dependencyManagement>
@@ -63,13 +63,26 @@
                 </exclusion>
             </exclusions>-->
         </dependency>
-
-        <!--自定义启动器-->
+        <!-- 工具类-->
+        <!--
+            compile:默认值，表示当前依赖包，要参与当前项目的编译，后续测试，运行时，打包
+            provided:代表在编译和测试的时候用，运行，打包的时候不会打包进去
+            test：表示当前依赖包只参与测试时的工作：比如Junit
+            runtime：表示当前依赖包只参与运行周期，其他跳过了
+            system：从参与度和provided一致，不过被依赖项不会从maven远程仓库下载，而是从本地的系统拿。需要
+            systemPath属性来定义路径
+        -->
         <dependency>
             <groupId>com.x</groupId>
-            <artifactId>x-core-launch</artifactId>
+            <artifactId>x-core-tool</artifactId>
             <version>${x.tool.version}</version>
             <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.x</groupId>
+            <artifactId>x-core-auto</artifactId>
+            <version>${x.tool.version}</version>
+            <scope>provided</scope>
         </dependency>
 
         <!--lombook-->
@@ -91,6 +104,21 @@
             <artifactId>mysql-connector-java</artifactId>
         </dependency>
 
+        <!--fastjson -->
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+            <version>${fastjson}</version>
+        </dependency>
+
+        <!-- 引入本地jar -->
+        <dependency>
+            <groupId>com.x</groupId>
+            <artifactId>test</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/src/main/resources/lib/test-0.0.1-SNAPSHOT.jar</systemPath>
+        </dependency>
     </dependencies>
 
     <!-- 编译 -->
